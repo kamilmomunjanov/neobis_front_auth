@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import "./Form.css";
 import {Link, useLocation} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import api from "../../../src/config/api/api";
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 const Form = () => {
@@ -9,7 +10,6 @@ const Form = () => {
     const [passwordView, setPasswordView] = useState(false)
     const password = useRef()
     const location = useLocation()
-    console.log(location)
 
     const {
         register,
@@ -30,10 +30,43 @@ const Form = () => {
 
     password.current = watch("password")
 
+    const registerUser = (user) => {
+        api.post('register', {
+            header: {
+                "content-type": "application/json"
+            },
+            json: {
+                ...user
+            }
+        }).json().then((res) => console.log(res))
+    }
+
+    const loginUser = (user) => {
+        api.post('login', {
+            header: {
+                "content-type": "application/json"
+            },
+            json: {
+                ...user
+            }
+        }).json().then((res) => console.log(res))
+    }
+
+
+
+    const submitForm = (data) => {
+        let {confirmPassword, ...user} = data
+        if (location.pathname === "/") {
+            loginUser(user)
+        }else{
+            registerUser(user)
+        }
+    }
+
 
     return (
         <div className="form">
-            <form noValidate className="form__content">
+            <form noValidate className="form__content" onSubmit={handleSubmit(submitForm)}>
                     <span className="form__logo" ref={password}>
                         {
                             location.pathname === "/" || "/" ? "Sign In" : "Sign Up"
