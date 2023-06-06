@@ -1,0 +1,64 @@
+.form{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.form__content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form__logo{
+    margin: 0 auto 100px;
+}
+
+.form__label-field{
+    display: flex;
+}
+
+.form__label-input{
+    font-family: 'Gotham Pro', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    background: #F7F7F8;
+    border: 1px solid #F5F5F5;
+    border-radius: 8px;
+    padding: 22px 163px  19px 10px;
+    margin-bottom: 16px;
+    outline: none;
+
+}
+
+.form__label-icon{
+    font-size: 20px;
+    margin-left: -40px;
+    padding: 22px 0 19px ;
+    cursor: pointer;
+}
+
+.form__btn{
+    font-family: 'Gotham Pro', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 15px;
+    color: #9CA4AB;
+    margin-bottom: 158px;
+    background: #F7F7F8;
+    border-radius: 16px;
+    padding: 25px 142px;
+    border: none;
+    cursor: pointer;
+}
+
+.form__start{
+    font-family: 'Gotham Pro', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 15px;
+    color: #5D5FEF;
+}
