@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import "./Form.css";
 import {Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
@@ -7,6 +7,8 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 const Form = () => {
 
     const [passwordView, setPasswordView] = useState(false)
+    const password = useRef()
+
     const {
         register,
         handleSubmit,
@@ -23,10 +25,14 @@ const Form = () => {
         setPasswordView(prevState => !prevState)
     }
 
+
+    password.current = watch("password")
+
+
     return (
         <div className="form">
             <form noValidate className="form__content">
-                    <span className="form__logo">Sign In</span>
+                    <span className="form__logo" ref={password}>Sign In</span>
 
                 <label className="form__label">
                     <input {...register("name", {
@@ -67,6 +73,25 @@ const Form = () => {
                     </p>
                 </label>
                 <label className="form__label">
+                    <input {...register("email", {
+                        required: {
+                            message: "Email обязателен к заполнению",
+                            value: true
+                        },
+                        minLength: {
+                            message: "Минимум 10 символов",
+                            value: 10
+                        },
+                        pattern: {
+                            message: "Напишите правильно свой Email",
+                            value: /^[^ ]+@[^ ]+\.[a-z]{2,5}$/
+                        }
+                    })} className="form__label-input" type="email" placeholder="Электронная почта"/>
+                    <p className="register__label-error">
+                        {errors.email && errors.email?.message}
+                    </p>
+                </label>
+                <label className="form__label">
                     <div className="form__label-field">
                         <input {...register("password", {
                             required: {
@@ -90,24 +115,20 @@ const Form = () => {
                         {errors.password && errors.password?.message}
                     </p>
                 </label>
-
                 <label className="form__label">
-                    <input {...register("email", {
-                        required: {
-                            message: "Email обязателен к заполнению",
-                            value: true
-                        },
-                        minLength: {
-                            message: "Минимум 10 символов",
-                            value: 10
-                        },
-                        pattern: {
-                            message: "Напишите правильно свой Email",
-                            value: /^[^ ]+@[^ ]+\.[a-z]{2,5}$/
-                        }
-                    })} className="form__label-input" type="email" placeholder="Электронная почта"/>
+                    <div className="form__label-field">
+                        <input {...register("confirmPassword", {
+                            validate: value =>
+                                value === password.current || "Неверно введён пароль"
+                        })} className="form__label-input" type={passwordView ? "text" : "password"} placeholder="Повторите пароль"/>
+                        {/*<span className="form__label-icon" onClick={viewPassword}>*/}
+                        {/*    {*/}
+                        {/*        passwordView ? <AiOutlineEye/> : <AiOutlineEyeInvisible/>*/}
+                        {/*    }*/}
+                        {/*</span>*/}
+                    </div>
                     <p className="register__label-error">
-                        {errors.email && errors.email?.message}
+                        {errors.confirmPassword && errors.confirmPassword?.message}
                     </p>
                 </label>
 
