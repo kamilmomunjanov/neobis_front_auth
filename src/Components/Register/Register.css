@@ -1,0 +1,18 @@
+.MuiButton-fontSizeMedium{
+    background: white;
+}
+
+.MuiButton-sizeLarge:hover{
+    background: transparent;
+    color: transparent;
+}
+
+.MuiButton-sizeLarge:active{
+    background: white;
+    color: transparent;
+}
+
+.MuiButton-sizeLarge:focus{
+    background: white;
+    color: transparent;
+}

@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from "react";
+import Register from "./Components/Register/Register";
+import {Routes, Route} from "react-router-dom";
+import NotFound from "./Components/NotFound/NotFound";
+import api from "./config/api/api"
+import "./App.css";
+
 
 function App() {
+
+    const [users, setUsers] = useState()
+
+    useEffect(() => {
+        api("users").json()
+            .then((res) => console.log(res))
+    }, [])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+        <Routes>
+            <Route path="" element={<Register/>}/>
+            {/*<Route path="/login" element={<Login/>}/>*/}
+            {/*<Route path="/register" element={<Register/>}/>*/}
+            <Route path="*" element={<NotFound/>}/>
+        </Routes>
+    </>
   );
 }
 

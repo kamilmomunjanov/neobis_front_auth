@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "id":1,
+      "email": "kama@mail.ru",
+      "name": "Kamil",
+      "surname": "Momunzhanov",
+      "phone": "+996507970107",
+      "city": "Bishkek",
+      "street":"Frunze",
+      "home": 2
+    }
+  ]
+}
