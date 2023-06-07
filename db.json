@@ -19,6 +19,13 @@
       "name": "Kam",
       "surname": "Miooh",
       "id": 3
+    },
+    {
+      "email": "momunjanov@inbox.ru",
+      "password": "$2a$10$hxHb/g4nW9akOAV048ypye5uBdd5OF8B6Tg5xZBh1INQ6vVX0wtSm",
+      "name": "Kamil",
+      "surname": "Momunjanov",
+      "id": 4
     }
   ]
 }

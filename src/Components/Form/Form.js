@@ -1,15 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import "./Form.css";
 import {Link, useLocation} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import api from "../../../src/config/api/api";
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import {CustomContext} from "../../config/context/context";
 
 const Form = () => {
 
     const [passwordView, setPasswordView] = useState(false)
     const password = useRef()
     const location = useLocation()
+    const {loginUser, registerUser} = useContext(CustomContext)
 
     const {
         register,
@@ -27,32 +29,7 @@ const Form = () => {
         setPasswordView(prevState => !prevState)
     }
 
-
     password.current = watch("password")
-
-    const registerUser = (user) => {
-        api.post('register', {
-            header: {
-                "content-type": "application/json"
-            },
-            json: {
-                ...user
-            }
-        }).json().then((res) => console.log(res))
-    }
-
-    const loginUser = (user) => {
-        api.post('login', {
-            header: {
-                "content-type": "application/json"
-            },
-            json: {
-                ...user
-            }
-        }).json().then((res) => console.log(res))
-    }
-
-
 
     const submitForm = (data) => {
         let {confirmPassword, ...user} = data
