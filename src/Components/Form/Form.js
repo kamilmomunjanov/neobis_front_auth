@@ -13,7 +13,7 @@ const Form = () => {
 
     const password = useRef()
     const location = useLocation()
-    const {loginUser, activateEmail, user,userInfo} = useContext(CustomContext)
+    const {loginUser, activateEmail, user,userInfo,addPassword, resetPassword} = useContext(CustomContext)
 
     const navigate = useNavigate()
 
@@ -36,20 +36,23 @@ const Form = () => {
     password.current = watch("password")
 
     const submitForm = (data) => {
-        let {confirmPassword, ...user} = data
         if (location.pathname === "/register") {
-            activateEmail(user)
+            activateEmail(data)
         }else if (location.pathname === '/userinfo'){
-            userInfo(user)
+            userInfo(data)
+        } else if (location.pathname === '/password') {
+            addPassword(data)
+        } else if (location.pathname === "/reset") {
+            resetPassword(data)
+        } else {
+            loginUser(data)
         }
     }
 
 
     return (
         <div className="form">
-            {
-                location.pathname !== '/' &&  <button className='form__back' onClick={() => navigate(-1)}>назад</button>
-            }
+
 
             <form noValidate className="form__content" onSubmit={handleSubmit(submitForm)}>
                     <span className="form__logo">
@@ -58,7 +61,9 @@ const Form = () => {
                         }
                     </span>
 
-
+                {
+                    location.pathname !== '/' &&  <button className='form__back' onClick={() => navigate(-1)}>Назад</button>
+                }
 
                 {
                     location.pathname === "/userinfo" && <label className="form__label">
@@ -123,9 +128,16 @@ const Form = () => {
                 {/*        </p>*/}
                 {/*    </label>*/}
                 {/*}*/}
+                {
+                    location.pathname === "/reset" ? <h2>Сброс пароля</h2> : ""
+                }
+                {
+                    location.pathname === "/reset" ? <p>На введенную вами почту мы отправим ссылку, <br/>
+                        перейдя по которой вы сможете сбросить пароль</p> : ""
+                }
 
                 {
-                    location.pathname === '/register' || location.pathname === '/' ?  <label className="form__label">
+                    location.pathname === '/register' || location.pathname === '/' || location.pathname === '/userinfo' || location.pathname === "/reset" ?  <label className="form__label">
                         <input {...register("email", {
                             required: {
                                 message: "Email обязателен к заполнению",
@@ -148,7 +160,7 @@ const Form = () => {
 
 
                 {
-                    location.pathname === '/password' || location.pathname === '/' &&  <label className="form__label">
+                    location.pathname === '/password' || location.pathname === '/' ? <label className="form__label">
                         <div className="form__label-field">
                             <input {...register("password", {
                                 required: {
@@ -172,12 +184,18 @@ const Form = () => {
                             {errors.password && errors.password?.message}
                         </p>
                     </label>
+
+                        : ''
+                }
+                {
+                    location.pathname === "/register" || location.pathname === '/' ?
+                        <Link to="/reset" className="form__forgot-password">Забыли пароль?</Link> : ""
                 }
 
                 {
                     location.pathname === "/password" && <label className="form__label">
                         <div className="form__label-field">
-                            <input {...register("confirmPassword", {
+                            <input {...register("password_repeat", {
                                 validate: value =>
                                     value === password.current || "Неверно введён пароль"
                             })} className="form__label-input" type={passwordView ? "text" : "password"} placeholder="Повторите пароль"/>
@@ -188,7 +206,7 @@ const Form = () => {
                             {/*</span>*/}
                         </div>
                         <p className="register__label-error">
-                            {errors.confirmPassword && errors.confirmPassword?.message}
+                            {errors.password_repeat && errors.password_repeat?.message}
                         </p>
                     </label>
                 }

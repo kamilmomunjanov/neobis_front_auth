@@ -10,6 +10,7 @@ const Context = (props) => {
 
     const [user, setUser] = useState({email:""})
     const [popup, setPopup] = useState(false)
+    const [forgotPassword, seForgotPassword] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -27,9 +28,9 @@ const Context = (props) => {
                 ...user
             }
         }).json().then((res) => {
-            setUser(res.user)
+            setUser(res)
             navigate('/register')
-            localStorage.setItem("user", JSON.stringify(res.user))
+            localStorage.setItem("user", JSON.stringify(res))
         })
     }
 
@@ -37,28 +38,46 @@ const Context = (props) => {
         api.post('auth/register/email/', {
             json: data
         }).json().then((res) => {
-            setUser(res.data)
+            setUser(res)
             setPopup(true)
-            localStorage.setItem("user", JSON.stringify(res.data))
+            localStorage.setItem("user", JSON.stringify(res))
+        })
+    }
+    const resetPassword = (data) => {
+        api.post('auth/request-reset-email/', {
+            json: data
+        }).json().then((res) => {
+            setPopup(true)
         })
     }
 
     const userInfo = (data) => {
-        api.patch('auth/register/personal-info/?email=momunjanov@inbox.ru/', {
+        api.put('auth/register/personal-info/?email=momunjanov@inbox.ru/', {
                 json:{
-                    email: "momunjanov@inbox.ru",
                     ...data,
                     birth_date: "1999-02-05"
                 }
-        }).then((res) => {
-            setUser(res.data)
-            setPopup(true)
-            localStorage.setItem("user", JSON.stringify(res.data))
+        }).json().then((res) => {
+            setUser(res)
+            localStorage.setItem("user", JSON.stringify(res))
+            navigate('/password')
+        })
+    }
+
+    const addPassword = (data) => {
+        api.put('auth/register/password/momunjanov@inbox.ru/', {
+            json: {
+                ...data
+            }
+        }).json().then((res) => {
+            setUser(res)
+            navigate('/')
+            localStorage.setItem("user", JSON.stringify(res))
         })
     }
 
     const loginUser = (user) => {
-        api.post('login', {
+        api.post('auth/login/', {
             header: {
                 "content-type": "application/json"
             },
@@ -66,14 +85,16 @@ const Context = (props) => {
                 ...user
             }
         }).json().then((res) => {
-            setUser(res.user)
-            navigate('/register')
-            localStorage.setItem("user", JSON.stringify(res.user))
+            setUser(res)
+            console.log('вошли в акк')
+            console.log(res)
+            navigate('/home')
+            localStorage.setItem("user", JSON.stringify(res))
         })
     }
 
     let value = {
-        user, setUser, activateEmail, loginUser, popup, setPopup,userInfo
+        user, setUser, activateEmail, loginUser, popup, setPopup,userInfo,addPassword,resetPassword
     }
 
     return <CustomContext.Provider value={value} >

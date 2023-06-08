@@ -6,6 +6,8 @@ import {Routes, Route} from "react-router-dom";
 import NotFound from "./Components/NotFound/NotFound";
 import "./App.css";
 import Password from "./Components/Password/Password";
+import Home from "./Components/Home/Home";
+import Reset from "./Components/Reset/Reset";
 
 
 function App() {
@@ -18,7 +20,9 @@ function App() {
             {/*<Route path="/login" element={<Login/>}/>*/}
             <Route path="/register" element={<Registration/>}/>
             <Route path="/userinfo" element={<UserInfo/>}/>
+            <Route path="/home" element={<Home/>}/>
             <Route path="/password" element={<Password/>}/>
+            <Route path="/reset" element={<Reset/>}/>
             <Route path="*" element={<NotFound/>}/>
         </Routes>
     </>
