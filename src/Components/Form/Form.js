@@ -62,6 +62,7 @@ const Form = () => {
                             location.pathname === "/"  ? "Sign In" : "Sign Up"
                         }
                     </span>
+                {/*/!*<img src="../../../public/img/Frame.png" alt=""/>*!/ Dont work*/}
 
                 {
                     location.pathname !== '/' &&  <button className='form__back' onClick={() => navigate(-1)}>Назад</button>
@@ -131,10 +132,10 @@ const Form = () => {
                 {/*    </label>*/}
                 {/*}*/}
                 {
-                    location.pathname === "/reset" ? <h2>Сброс пароля</h2> : ""
+                    location.pathname === "/reset" ? <h2 className="reset">Сброс пароля</h2> : ""
                 }
                 {
-                    location.pathname === "/reset" ? <p>На введенную вами почту мы отправим ссылку, <br/>
+                    location.pathname === "/reset" ? <p className="reset__text">На введенную вами почту мы отправим ссылку, <br/>
                         перейдя по которой вы сможете сбросить пароль</p> : ""
                 }
 
