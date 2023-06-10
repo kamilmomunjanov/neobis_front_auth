@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import Form from "../Form/Form";
 import {CustomContext} from "../../config/context/context";
+import "./Reset.css";
 
 const Reset = () => {
 
@@ -10,10 +11,12 @@ const Reset = () => {
            <Form/>
             {
                 popup ?  <div className="form__popup">
-                    На вашу почту «{user.email}» было отправлено письмо
-                    <button onClick={() => setPopup(false)}>Закрыть</button>
+                    На вашу почту «{user.email}» <br/> было отправлено письмо
+                    <button className="close" onClick={() => setPopup(false)}>Закрыть</button>
                 </div> : ''
             }
+
+
         </>
     );
 };

@@ -1,0 +1,33 @@
+
+
+.form__popup{
+    padding: 50px 100px;
+    background-color: grey;
+    width: 565px;
+    height: 419px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 20px;
+    font-size: 24px;
+    line-height: 120%;
+    color: black;
+    text-align: center;
+}
+
+.close{
+    font-family: 'Gotham Pro', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 15px;
+    color: #FFFFFF;
+    width: 335px;
+    height: 65px;
+    background: #5D5FEF;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+}
