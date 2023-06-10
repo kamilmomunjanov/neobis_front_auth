@@ -13,7 +13,7 @@ const Form = () => {
 
     const password = useRef()
     const location = useLocation()
-    const {loginUser, activateEmail, user,userInfo,addPassword, resetPassword} = useContext(CustomContext)
+    const {loginUser, activateEmail, user,userInfo,addPassword, resetPassword, checkPassword} = useContext(CustomContext)
 
     const navigate = useNavigate()
 
@@ -44,6 +44,8 @@ const Form = () => {
             addPassword(data)
         } else if (location.pathname === "/reset") {
             resetPassword(data)
+        } else if (location.pathname === "/reset/password") {
+            checkPassword(data)
         } else {
             loginUser(data)
         }
@@ -160,7 +162,7 @@ const Form = () => {
 
 
                 {
-                    location.pathname === '/password' || location.pathname === '/' ? <label className="form__label">
+                    location.pathname === '/password' || location.pathname === '/' || location.pathname === '/reset/password' ? <label className="form__label">
                         <div className="form__label-field">
                             <input {...register("password", {
                                 required: {
@@ -188,12 +190,12 @@ const Form = () => {
                         : ''
                 }
                 {
-                    location.pathname === "/register" || location.pathname === '/' ?
+                     location.pathname === '/' ?
                         <Link to="/reset" className="form__forgot-password">Забыли пароль?</Link> : ""
                 }
 
                 {
-                    location.pathname === "/password" && <label className="form__label">
+                    location.pathname === "/password" || location.pathname === '/reset/password' ? <label className="form__label">
                         <div className="form__label-field">
                             <input {...register("password_repeat", {
                                 validate: value =>
@@ -208,15 +210,20 @@ const Form = () => {
                         <p className="register__label-error">
                             {errors.password_repeat && errors.password_repeat?.message}
                         </p>
-                    </label>
+                    </label> : ""
                 }
 
 
-                <button className="form__btn" type="submit">Войти</button>
+
+                {
+                    location.pathname === "/reset/password" ? <button className="form__btn">Сбросить пароль</button> : <button className="form__btn" type="submit">Войти</button>
+                }
 
                 {
                     location.pathname === '/' &&   <Link className="form__start" to="/register">Начать пользоваться</Link>
                 }
+
+
 
             </form>
 

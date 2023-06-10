@@ -8,6 +8,7 @@ import "./App.css";
 import Password from "./Components/Password/Password";
 import Home from "./Components/Home/Home";
 import Reset from "./Components/Reset/Reset";
+import ResetPassword from "./Components/ResetPassword/ResetPassword";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/home" element={<Home/>}/>
             <Route path="/password" element={<Password/>}/>
             <Route path="/reset" element={<Reset/>}/>
+            <Route path="/reset/password" element={<ResetPassword/>}/>
             <Route path="*" element={<NotFound/>}/>
         </Routes>
     </>

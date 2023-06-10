@@ -1,5 +1,5 @@
 import {createContext, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import api from "../api/api";
 import axios from "axios";
 
@@ -10,8 +10,8 @@ const Context = (props) => {
 
     const [user, setUser] = useState({email:""})
     const [popup, setPopup] = useState(false)
-    const [forgotPassword, seForgotPassword] = useState(false)
     const navigate = useNavigate()
+    const {id, token} = useParams()
 
     useEffect(() => {
         if (localStorage.getItem('user') !== null) {
@@ -50,6 +50,18 @@ const Context = (props) => {
             setPopup(true)
         })
     }
+    // http://35.234.124.146/auth/password-reset/Nzk/bpl5m8-b834f17ab43e510b1e927e5a03bbb543/
+    //     const checkPassword = (data) => {
+    //         api.post(`auth/reset-password/confirm/`, {
+    //             json: {
+    //                 ...data
+    //             }
+    //             }
+    //         ).json().then((res) => {
+    //             setUser(res)
+    //             setPopup(true)
+    //         })
+    //     }
 
     const userInfo = (data) => {
         api.put('auth/register/personal-info/?email=momunjanov@inbox.ru/', {
