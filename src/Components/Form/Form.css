@@ -124,5 +124,15 @@
     margin: 10px 0;
 }
 
+.register__label-error{
+    font-family: 'Gotham Pro', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    text-align: center;
+    color: #9CA4AB;
+}
+
 
 
